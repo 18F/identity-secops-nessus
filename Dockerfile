@@ -3,7 +3,7 @@ ARG BUCKET
 ARG AWS_ACCESS_KEY_ID
 ARG AWS_SECRET_ACCESS_KEY
 RUN apk add aws-cli
-RUN aws s3 cp s3://${BUCKET}/Nessus-8.10.0-ubuntu1110_amd64.deb /tmp/Nessus.deb
+RUN aws s3 cp s3://${BUCKET}/Nessus-7.2.3-ubuntu1110_amd64.deb /tmp/Nessus.deb
 
 
 FROM ubuntu:bionic
