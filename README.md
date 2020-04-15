@@ -18,13 +18,9 @@ after that.
 
 The container needs to be built with something like:
 ```
-docker build --build-arg AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-  --build-arg AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-  --build-arg BUCKET=$BUCKET .
+aws s3 cp s3://${BUCKET}/Nessus-7.2.3-ubuntu1110_amd64.deb Nessus.deb
+docker build --build-arg BUCKET=$BUCKET .
 ```
-
-The AWS keys should have permissions sufficient for you to read from the artifacts bucket specified,
-and probably also to push to ECR too.
 
 ## Status
 
