@@ -3,6 +3,9 @@ version: 0.2
 phases:
   pre_build:
     commands:
+      - echo AWS_DEFAULT_REGION is $AWS_DEFAULT_REGION
+      - echo AWS_ACCESS_KEY_ID is $AWS_ACCESS_KEY_ID
+      - echo IMAGE_REPO_URL is $IMAGE_REPO_URL
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION)
   build:
