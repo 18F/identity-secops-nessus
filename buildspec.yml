@@ -1,18 +1,11 @@
 version: 0.2
 
 phases:
-  pre_build:
-    commands:
-      - echo AWS_DEFAULT_REGION is $AWS_DEFAULT_REGION
-      - echo AWS_ACCESS_KEY_ID is $AWS_ACCESS_KEY_ID
-      - echo IMAGE_REPO_URL is $IMAGE_REPO_URL
-      - echo Logging in to Amazon ECR...
-      - $(aws ecr get-login --region $AWS_DEFAULT_REGION)
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...          
-      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG --build-arg AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID --build-arg AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --build-arg BUCKET=$BUCKET .
+      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG --build-arg BUCKET=$BUCKET .
       - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $IMAGE_REPO_URL:$IMAGE_TAG      
   post_build:
     commands:
