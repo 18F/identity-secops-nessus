@@ -32,5 +32,6 @@ if [ ! -f /opt/nessus/var/registered_flag ] ; then
 fi
 
 # start the nessus service up in a way that gets us stdout logging
-tail -f /opt/nessus/var/nessus/logs/* &
+# XXX this results in ugly logs since it's 4 different formats, has tail headers, etc.
+tail --follow=name --retry /opt/nessus/var/nessus/logs/* &
 exec /opt/nessus/sbin/nessus-service
