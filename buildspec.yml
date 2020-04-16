@@ -10,8 +10,6 @@ phases:
     commands:
       - echo Build started on `date`
       - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG --build-arg BUCKET=$BUCKET .
-  test:
-    commands:
       - echo Testing $IMAGE_REPO_NAME:$IMAGE_TAG
       - docker run -e LICENSE=XXXX-XXXX-XXXX-XXXX-XXXX $IMAGE_REPO_NAME:$IMAGE_TAG /usr/bin/test.sh
   post_build:
