@@ -1,10 +1,21 @@
 #!/bin/sh
 
+if [ -z "$LICENSE" ] ; then
+	echo "no license key specified, exiting"
+	exit 1
+fi
+
 # if this is a new instance of nessus, the persistent volume will be
 # empty, so unpack the tarball backup of a base install into it.
+#
+# Otherwise, do an upgrade on the existing volume, in case we have a
+# new version.
 if [ ! -d /opt/nessus/bin ] ; then
 	echo Initializing new install of Nessus
-	(cd /opt && tar zxpf nessus.tar.gz)
+	apt-get install /opt/Nessus.deb
+else
+	echo upgrading nessus with package just to be sure
+	apt-get upgrade /opt/Nessus.deb
 fi
 
 # Register stuff if we haven't already
