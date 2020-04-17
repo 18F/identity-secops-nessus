@@ -16,7 +16,6 @@ else
 fi
 
 # deploy the thing!
-kubectl apply -f "$K8SPATH/nessus-volume.yaml"
 kubectl apply -f "$K8SPATH/nessus-volumeclaim.yaml"
 kubectl apply -f "$K8SPATH/nessus-deployment.yaml"
 kubectl apply -f "$K8SPATH/nessus-service.yaml"

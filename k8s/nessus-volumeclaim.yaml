@@ -3,10 +3,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: nessus-pv-claim
 spec:
-  storageClassName: manual
+  storageClassName: ebs
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 200Gi
-
