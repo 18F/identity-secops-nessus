@@ -18,7 +18,7 @@ phases:
       - echo Pushing the Docker image...
       - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $IMAGE_REPO_URL:$IMAGE_TAG
       - docker push $IMAGE_REPO_URL:$IMAGE_TAG
-  deploy:
+  install:
     commands:
       - echo Deploying $IMAGE_REPO_URL:$IMAGE_TAG
       - aws eks update-kubeconfig --name "$CLUSTER"
