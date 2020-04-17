@@ -7,15 +7,9 @@ fi
 
 # if this is a new instance of nessus, the persistent volume will be
 # empty, so unpack the tarball backup of a base install into it.
-#
-# Otherwise, do an upgrade on the existing volume, in case we have a
-# new version.
 if [ ! -d /opt/nessus/bin ] ; then
 	echo Initializing new install of Nessus
 	apt-get install /opt/Nessus.deb
-else
-	echo upgrading nessus with package just to be sure
-	apt-get upgrade /opt/Nessus.deb
 fi
 
 # Register stuff if we haven't already
@@ -31,7 +25,7 @@ if [ ! -f /opt/nessus/var/registered_flag ] ; then
 	echo "XXX someday, get these from secrets?"
 fi
 
-# start the nessus service up in a way that gets us stdout logging
+# start the nessus service up in a way that gets us stdout logging of everything
 # XXX this results in ugly logs since it's 4 different formats, has tail headers, etc.
 tail --follow=name --retry /opt/nessus/var/nessus/logs/* &
 exec /opt/nessus/sbin/nessus-service
