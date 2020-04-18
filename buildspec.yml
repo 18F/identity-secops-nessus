@@ -12,13 +12,11 @@ phases:
       - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG --build-arg BUCKET=$BUCKET .
       - echo Testing $IMAGE_REPO_NAME:$IMAGE_TAG
       - docker run -e LICENSE=XXXX-XXXX-XXXX-XXXX-XXXX $IMAGE_REPO_NAME:$IMAGE_TAG /usr/bin/test.sh
-  post_build:
-    commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $IMAGE_REPO_URL:$IMAGE_TAG
       - docker push $IMAGE_REPO_URL:$IMAGE_TAG
-  install:
+  post_build:
     commands:
       - echo Deploying $IMAGE_REPO_URL:$IMAGE_TAG
       - aws eks update-kubeconfig --name "$CLUSTER"
