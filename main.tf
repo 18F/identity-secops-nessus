@@ -15,7 +15,7 @@ resource "aws_codebuild_project" "nessus" {
   build_timeout  = "5"
   queued_timeout = "5"
 
-  service_role = aws_iam_role.codebuild.arn
+  service_role = var.codebuild_arn
 
   artifacts {
     type = "NO_ARTIFACTS"
@@ -34,7 +34,7 @@ resource "aws_codebuild_project" "nessus" {
 
     environment_variable {
       name  = "BUCKET"
-      value = aws_s3_bucket.artifacts.id
+      value = var.artifacts_bucket_id
     }
     environment_variable {
       name  = "IMAGE_REPO_URL"
@@ -50,7 +50,7 @@ resource "aws_codebuild_project" "nessus" {
     }
     environment_variable {
       name  = "CLUSTER"
-      value = aws_eks_cluster.secops.name
+      value = var.eks_cluster_name
     }
   }
 
@@ -76,14 +76,14 @@ resource "aws_codebuild_project" "nessus" {
 # here is the codepipeline that builds/deploys it
 resource "aws_codepipeline" "nessus" {
   name     = "nessus"
-  role_arn = aws_iam_role.codepipeline_role.arn
+  role_arn = var.codepipeline_arn
 
   artifact_store {
-    location = aws_s3_bucket.codepipeline_bucket.bucket
+    location = var.codepipeline_bucket
     type     = "S3"
 
     encryption_key {
-      id   = aws_kms_alias.pipelines3kmskey.arn
+      id   = var.codepipeline_kmskey_arn
       type = "KMS"
     }
   }
@@ -128,7 +128,7 @@ resource "aws_codepipeline" "nessus" {
 
 # need this so that we can get the license key for nessus
 resource "aws_iam_role_policy" "nessus" {
-  role = aws_iam_role.codebuild.name
+  role = var.codebuild_role_name
 
   policy = <<POLICY
 {
