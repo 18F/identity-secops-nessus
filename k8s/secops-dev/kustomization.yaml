@@ -1,3 +1,6 @@
 bases:
 - ../secops-prod
-
+images:
+- name: secops-nessus
+  newName: 034795980528.dkr.ecr.us-west-2.amazonaws.com/secops-nessus
+  newTag: 1.0.0

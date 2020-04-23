@@ -9,8 +9,7 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - find / -name git | grep bin
-      - IMAGE_TAG=$(/usr/bin/git log -n1 --format=format:"%H")
+      - IMAGE_TAG=$(cat version)
       - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG --build-arg BUCKET=$BUCKET .
       - echo Testing $IMAGE_REPO_NAME:$IMAGE_TAG
       - docker run -e LICENSE=XXXX-XXXX-XXXX-XXXX-XXXX $IMAGE_REPO_NAME:$IMAGE_TAG /usr/bin/test.sh
