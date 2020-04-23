@@ -1,6 +1,6 @@
 # ECR repo for nessus
 resource "aws_ecr_repository" "secops-nessus" {
-  name                 = "secops-nessus"
+  name                 = "nessus-${var.eks_cluster_name}"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
