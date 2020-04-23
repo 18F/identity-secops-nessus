@@ -81,11 +81,6 @@ resource "aws_codepipeline" "nessus" {
   artifact_store {
     location = var.codepipeline_bucket
     type     = "S3"
-
-    encryption_key {
-      id   = var.codepipeline_kmskey_arn
-      type = "KMS"
-    }
   }
 
   stage {
