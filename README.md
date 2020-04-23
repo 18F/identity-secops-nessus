@@ -26,7 +26,9 @@ docker build .
 ```
 
 Codebuild's buildspec.yml is where you configure which .deb is installed
-in automatic deploys.
+in automatic deploys.  If you need AWS resources created, you can add them
+in `main.tf`, as that code is run as a module when https://github.com/18F/identity-secops
+is deployed.
 
 ## Kuberenetes deployment
 
@@ -39,6 +41,13 @@ Then run `k8s/deploy.sh`
 
 If you are deploying this for the first time, then you will need to exec into the pod and
 run `/opt/nessus/sbin/nessuscli adduser <username>` to add users.
+
+## Automatic Deployment
+
+There is a codepipeline thing set up in `main.tf` that watches master and deploys
+when there are changes.  If there are infrastructure changes in the terraform code,
+the https://github.com/18F/identity-secops deploy must be run first.  Once we
+get codepipeline really working, we will try to automate this too.
 
 ## Status
 
