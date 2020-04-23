@@ -6,12 +6,10 @@ phases:
       - echo Getting Nessus package
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - aws s3 cp s3://${BUCKET}/Nessus-8.10.0-ubuntu1110_amd64.deb Nessus.deb --no-progress
-      - echo Installing packages
-      - apt install -y git
   build:
     commands:
       - echo Build started on `date`
-      - IMAGE_TAG=$(git log -n1 --format=format:"%H")
+      - IMAGE_TAG=$(/usr/bin/git log -n1 --format=format:"%H")
       - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG --build-arg BUCKET=$BUCKET .
       - echo Testing $IMAGE_REPO_NAME:$IMAGE_TAG
       - docker run -e LICENSE=XXXX-XXXX-XXXX-XXXX-XXXX $IMAGE_REPO_NAME:$IMAGE_TAG /usr/bin/test.sh
