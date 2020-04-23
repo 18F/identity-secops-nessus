@@ -26,5 +26,5 @@ variable "codepipeline_arn" {
 
 variable "codepipeline_bucket" {
   type    = string
-  description "the bucket that codepipeline uses"
+  description = "the bucket that codepipeline uses"
 }
