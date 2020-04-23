@@ -45,10 +45,6 @@ resource "aws_codebuild_project" "nessus" {
       value = aws_ecr_repository.secops-nessus.name
     }
     environment_variable {
-      name  = "IMAGE_TAG"
-      value = "latest"
-    }
-    environment_variable {
       name  = "CLUSTER"
       value = var.eks_cluster_name
     }

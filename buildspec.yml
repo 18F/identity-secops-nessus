@@ -9,6 +9,7 @@ phases:
   build:
     commands:
       - echo Build started on `date`
+      - IMAGE_TAG=$(git log -n1 --format=format:"%H")
       - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG --build-arg BUCKET=$BUCKET .
       - echo Testing $IMAGE_REPO_NAME:$IMAGE_TAG
       - docker run -e LICENSE=XXXX-XXXX-XXXX-XXXX-XXXX $IMAGE_REPO_NAME:$IMAGE_TAG /usr/bin/test.sh
@@ -20,4 +21,4 @@ phases:
     commands:
       - echo Deploying $IMAGE_REPO_URL:$IMAGE_TAG
       - aws eks update-kubeconfig --name "$CLUSTER"
-      - k8s/deploy.sh
+      - k8s/deploy.sh $IMAGE_REPO_URL:$IMAGE_TAG
