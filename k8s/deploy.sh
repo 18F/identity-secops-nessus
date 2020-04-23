@@ -20,10 +20,5 @@ else
 	kubectl create secret generic nessus-secrets --from-literal=license="$LICENSE"
 fi
 
-# change container
-yq w -i "$K8SPATH/nessus-deployment.yaml" 'spec.template.spec.containers[0].image' "$1"
-
-# deploy the thing!
-kubectl apply -f "$K8SPATH/nessus-volumeclaim.yaml"
-kubectl apply -f "$K8SPATH/nessus-deployment.yaml"
-kubectl apply -f "$K8SPATH/nessus-service.yaml"
+# deploy the thing using the proper config for the cluster we are in!
+kubectl apply -k "$K8SPATH/$CLUSTER"

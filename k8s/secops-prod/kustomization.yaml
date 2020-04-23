@@ -1,0 +1,5 @@
+resources:
+- nessus-deployment.yaml
+- nessus-service.yaml
+- nessus-volumeclaim.yaml
+
