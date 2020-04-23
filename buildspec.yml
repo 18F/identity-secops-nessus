@@ -6,6 +6,8 @@ phases:
       - echo Getting Nessus package
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - aws s3 cp s3://${BUCKET}/Nessus-8.10.0-ubuntu1110_amd64.deb Nessus.deb --no-progress
+      - echo Installing packages
+      - apt install -y yq git
   build:
     commands:
       - echo Build started on `date`
@@ -17,8 +19,6 @@ phases:
       - echo Pushing the Docker image...
       - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $IMAGE_REPO_URL:$IMAGE_TAG
       - docker push $IMAGE_REPO_URL:$IMAGE_TAG
-  post_build:
-    commands:
       - echo Deploying $IMAGE_REPO_URL:$IMAGE_TAG
       - aws eks update-kubeconfig --name "$CLUSTER"
       - k8s/deploy.sh $IMAGE_REPO_URL:$IMAGE_TAG
