@@ -28,7 +28,8 @@ docker build .
 Codebuild's buildspec.yml is where you configure which .deb is installed
 in automatic deploys.  If you need AWS resources created, you can add them
 in `main.tf`, as that code is run as a module when https://github.com/18F/identity-secops
-is deployed.
+is deployed.  Currently, this is only installing the codebuild/codepipeline stuff
+needed to autodeploy it.
 
 ## Kuberenetes deployment
 
