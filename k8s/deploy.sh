@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 #
 # make sure you have the secret set up in secretsmanager first!
 # something like:
@@ -21,5 +21,7 @@ else
 fi
 
 # deploy the thing using the proper config for the cluster we are in!
+kubectl version
 kubectl apply -k "$K8SPATH/$CLUSTER"
-kubectl annotate deployment nessus kubernetes.io/change-cause="deploying $1"
+kubectl rollout restart deployment nessus
+kubectl annotate deployment nessus kubernetes.io/change-cause="deployed $1"
