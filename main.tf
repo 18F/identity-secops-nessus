@@ -71,7 +71,7 @@ resource "aws_codebuild_project" "nessus" {
 
 # here is the codepipeline that builds/deploys it
 resource "aws_codepipeline" "nessus" {
-  name     = "nessus"
+  name     = "nessus-${var.eks_cluster_name}"
   role_arn = var.codepipeline_arn
 
   artifact_store {
