@@ -93,7 +93,7 @@ resource "aws_codepipeline" "nessus" {
       configuration = {
         Owner  = "18F"
         Repo   = "identity-secops-nessus"
-        # Branch = "master"
+        Branch = "master"
       }
     }
   }
