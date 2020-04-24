@@ -20,7 +20,7 @@ spec:
             claimName: nessus-pv-claim
       containers:
       - name: secops-nessus
-        image: 034795980528.dkr.ecr.us-west-2.amazonaws.com/secops-nessus:1.0.0
+        image: 034795980528.dkr.ecr.us-west-2.amazonaws.com/nessus-secops-prod:1.0.0
         resources:
           requests:
             cpu: 100m
