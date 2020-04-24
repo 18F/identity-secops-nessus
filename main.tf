@@ -10,7 +10,7 @@ resource "aws_ecr_repository" "secops-nessus" {
 
 # build project for nessus
 resource "aws_codebuild_project" "nessus" {
-  name           = "nessus"
+  name           = "nessus-${var.eks_cluster_name}"
   description    = "build_nessus"
   build_timeout  = "5"
   queued_timeout = "5"
