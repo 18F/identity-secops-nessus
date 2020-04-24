@@ -20,6 +20,9 @@ phases:
       docker run -e LICENSE=XXXX-XXXX-XXXX-XXXX-XXXX $IMAGE_REPO_NAME:$IMAGE_TAG /usr/bin/test.sh
       
       echo Pushing the Docker image...
+      if docker manifest inspect $IMAGE_REPO_URL:$IMAGE_TAG > /dev/null ; then
+        echo tag exists in repo
+      fi
       docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $IMAGE_REPO_URL:$IMAGE_TAG
       docker push $IMAGE_REPO_URL:$IMAGE_TAG
       

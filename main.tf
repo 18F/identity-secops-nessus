@@ -59,12 +59,12 @@ resource "aws_codebuild_project" "nessus" {
   logs_config {
     cloudwatch_logs {
       group_name  = "builds"
-      stream_name = "nessus"
+      stream_name = "nessus-${var.eks_cluster_name}"
     }
   }
 
   tags = {
-    Environment = "Test"
+    Environment = var.eks_cluster_name
   }
 }
 
@@ -93,7 +93,7 @@ resource "aws_codepipeline" "nessus" {
       configuration = {
         Owner  = "18F"
         Repo   = "identity-secops-nessus"
-        Branch = "master"
+        # Branch = "master"
       }
     }
   }
@@ -111,7 +111,7 @@ resource "aws_codepipeline" "nessus" {
       version          = "1"
 
       configuration = {
-        ProjectName = "nessus"
+        ProjectName = "nessus-${var.eks_cluster_name}"
       }
     }
   }
