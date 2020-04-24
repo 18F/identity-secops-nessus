@@ -24,5 +24,5 @@ fi
 kubectl version
 kubectl apply -k "$K8SPATH/$CLUSTER"
 kubectl patch deployment nessus -p \
-  "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"$(date +'%s')\"}}}}}"
+  "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"containerimage\":\"$1\"}}}}}"
 echo "rollout triggered!"
