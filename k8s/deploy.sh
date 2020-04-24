@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 #
 # make sure you have the secret set up in secretsmanager first!
 # something like:
