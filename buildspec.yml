@@ -9,6 +9,7 @@ phases:
   build:
     commands: |
       echo Build started on `date`
+      set -e
       IMAGE_TAG=$(cat version)
       docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG --build-arg BUCKET=$BUCKET .
       echo Build completed on `date`
@@ -22,6 +23,6 @@ phases:
       docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $IMAGE_REPO_URL:$IMAGE_TAG
       docker push $IMAGE_REPO_URL:$IMAGE_TAG
       
-      echo Deploying $IMAGE_REPO_URL:$CODEBUILD_RESOLVED_SOURCE_VERSION
+      echo Deploying $IMAGE_REPO_URL:$CODEBUILD_RESOLVED_SOURCE_VERSION to $CLUSTER
       aws eks update-kubeconfig --name "$CLUSTER"
       k8s/deploy.sh $IMAGE_REPO_URL:$CODEBUILD_RESOLVED_SOURCE_VERSION
