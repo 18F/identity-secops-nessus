@@ -22,3 +22,4 @@ fi
 
 # deploy the thing using the proper config for the cluster we are in!
 kubectl apply -k "$K8SPATH/$CLUSTER"
+kubectl rollout restart deployment nessus
