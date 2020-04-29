@@ -5,7 +5,7 @@ This repo contains the info needed to containerize Nessus.
 ## Running
 
 The container needs to be run with the `LICENSE` environment variable set, so that
-it can properly register and operate.
+it can properly register and operate.  This is pulled from the `nessus-secrets/license` secret.
 
 The container is also meant to be run with a persistent volume attached to /opt/nessus.
 Every time the container is launched, it will either install (if empty) or upgrade
@@ -25,31 +25,21 @@ aws s3 cp s3://${BUCKET}/Nessus-7.2.3-ubuntu1110_amd64.deb Nessus.deb
 docker build .
 ```
 
-Codebuild's buildspec.yml is where you configure which .deb is installed
-in automatic deploys.  If you need AWS resources created, you can add them
-in `main.tf`, as that code is run as a module when https://github.com/18F/identity-secops
-is deployed.  Currently, this is only installing the codebuild/codepipeline stuff
-needed to autodeploy it.
+By default, CircleCI builds this container and tags it into `logindotgov/<git sha>`
+and `logindotgov/<branch>` when it sees changes.
 
 ## Kuberenetes deployment
 
 Set the license key up with something like this:
 ```
-aws secretsmanager create-secret --name nessus-license --secret-string <Nessus-License-String>
+kubectl create secret generic nessus-secrets --from-literal=license=<Nessus-License-String>
 ```
 
-Then run `k8s/deploy.sh`
+Then run `./deploy.sh`
 
 If you are deploying this for the first time, then you will need to exec into the pod and
 run `/opt/nessus/sbin/nessuscli adduser <username>` to add users.
 
 ## Automatic Deployment
 
-There is a codepipeline thing set up in `main.tf` that watches master and deploys
-when there are changes.  If there are infrastructure changes in the terraform code,
-the https://github.com/18F/identity-secops deploy must be run first.  Once we
-get codepipeline really working, we will try to automate this too.
-
-## Status
-
-This is currently for testing only, not production.
+This will be done with spinnaker.  Not sure how yet, though.

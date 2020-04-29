@@ -1,0 +1,24 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.6
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run: |
+          docker build -t logindotgov/nessus:$CIRCLE_BRANCH -t logindotgov/nessus:$CIRCLE_SHA1 .
+      - run: |
+          # run a test to make sure that nessus works!
+          docker run logindotgov/nessus:$CIRCLE_BRANCH /test.sh
+      - run: |
+          # push it to the repo if the test passes
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
+          docker push logindotgov/nessus:$CIRCLE_SHA1
+          docker push logindotgov/nessus:$CIRCLE_BRANCH
+workflows:
+  version: 2
+  release:
+    jobs:
+      - build
