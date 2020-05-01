@@ -11,7 +11,7 @@ jobs:
           docker build -t logindotgov/nessus:$CIRCLE_BRANCH -t logindotgov/nessus:$CIRCLE_SHA1 .
       - run: |
           # run a test to make sure that nessus works!
-          docker run l-e LICENSE=XXXX-XXXX-XXXX-XXXX-XXXX ogindotgov/nessus:$CIRCLE_BRANCH /usr/bin/test.sh
+          docker run -e LICENSE=XXXX-XXXX-XXXX-XXXX-XXXX logindotgov/nessus:$CIRCLE_BRANCH /usr/bin/test.sh
       - run: |
           # push it to the repo if the test passes
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
