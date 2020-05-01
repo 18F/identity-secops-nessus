@@ -8,6 +8,7 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run: |
+          sudo apt-get install git-lfs
           git lfs install
           git pull
           docker build -t logindotgov/nessus:$CIRCLE_BRANCH -t logindotgov/nessus:$CIRCLE_SHA1 .
