@@ -21,6 +21,7 @@ jobs:
           docker push logindotgov/nessus:$CIRCLE_SHA1
           docker push logindotgov/nessus:$CIRCLE_BRANCH
           if [ "$CIRCLE_BRANCH" = "master" ] ; then
+            docker tag logindotgov/nessus:master logindotgov/nessus:latest
             docker push logindotgov/nessus:latest
           fi
 workflows:
