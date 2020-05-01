@@ -10,7 +10,7 @@ jobs:
       - run: |
           sudo apt-get install git-lfs
           git lfs install
-          git pull
+          git lfs pull
           docker build -t logindotgov/nessus:$CIRCLE_BRANCH -t logindotgov/nessus:$CIRCLE_SHA1 .
       - run: |
           # run a test to make sure that nessus works!
