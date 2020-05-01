@@ -1,6 +1,0 @@
-bases:
-- ../secops-prod
-images:
-- name: logindotgov/nessus:master
-  newName: logindotgov/nessus
-  newTag: master

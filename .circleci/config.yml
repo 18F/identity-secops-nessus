@@ -17,6 +17,9 @@ jobs:
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
           docker push logindotgov/nessus:$CIRCLE_SHA1
           docker push logindotgov/nessus:$CIRCLE_BRANCH
+          if [ "$CIRCLE_BRANCH" = "master" ] ; then
+            docker push logindotgov/nessus:latest
+          fi
 workflows:
   version: 2
   release:
