@@ -8,8 +8,7 @@
 #
 
 # Fire it up and run for 60 seconds to see if it worked.
-timeout 60 /usr/bin/nessus.sh > /tmp/test.out
-
+timeout 60 /usr/bin/nessus.sh >/tmp/test.out
 
 # Check that webserver is running
 if grep 'WebServer service is running' /opt/nessus/var/nessus/logs/nessusd.messages >/dev/null ; then
