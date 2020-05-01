@@ -8,6 +8,7 @@
 #
 
 # Fire it up and run for 60 seconds to see if it worked.
+ls -l /opt/Nessus.deb
 timeout 60 /usr/bin/nessus.sh >/tmp/test.out
 
 # Check that webserver is running
