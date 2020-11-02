@@ -5,5 +5,5 @@ if [ ! -d "$CLUSTER" ] ; then
 	CLUSTER="default"
 fi
 
-kubectl delete -k k8s/$1
+kubectl delete -k "k8s/$1"
 

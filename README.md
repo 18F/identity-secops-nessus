@@ -1,6 +1,8 @@
 # Nessus
 
-This repo contains the info needed to containerize Nessus.  
+This repo contains the info needed to containerize Nessus.
+
+In order to actually fully check it out, you will need to enable [Git LFS](https://git-lfs.github.com/).
 
 ## Running
 
@@ -28,7 +30,7 @@ docker build .
 By default, CircleCI builds this container and tags it into `logindotgov/<git sha>`
 and `logindotgov/<branch>` when it sees changes.
 
-## Kuberenetes deployment
+## Kubernetes deployment
 
 Set the license key up with something like this:
 ```
